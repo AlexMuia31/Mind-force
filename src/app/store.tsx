@@ -12,5 +12,8 @@ export const store = configureStore({
     // and other useful features of `rtk-query`.
 
     middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware().concat(photosApi.middleware),
+        getDefaultMiddleware({
+            immutableCheck: false,
+            serializableCheck: false,
+        }).concat(photosApi.middleware),
 })

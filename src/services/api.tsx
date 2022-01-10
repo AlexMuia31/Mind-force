@@ -7,7 +7,18 @@ export const photosApi = createApi({
     baseQuery: fetchBaseQuery({ baseUrl }),
     endpoints: (builder) => ({
         getPhotos: builder.query({
-            query: () => '/photos'  // this is the endpoint
+            query: () => `/photos?_limit=111`  // getting all photos and limiting to 111 items
+
+        }),
+        getPhoto: builder.query({
+            query: (id) => `/photos/${id}` //getting an individual photo by id
+        }),
+        updatePhoto: builder.mutation({   //updating method (Editing)
+            query: ({ id, ...rest }) => ({
+                url: `photos/${id}`,
+                method: 'PUT',
+                body: rest
+            })
         })
     })
 })
@@ -15,4 +26,4 @@ export const photosApi = createApi({
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
 
-export const { useGetPhotosQuery } = photosApi
+export const { useGetPhotosQuery, useGetPhotoQuery, useUpdatePhotoMutation } = photosApi
